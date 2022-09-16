@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 //import Table from "../components/Table";
 import { Link } from "react-router-dom";
@@ -49,44 +49,43 @@ const StyledTable = styled.table`
 function Home() {
   const [company, setCompany] = useState([]);
 
-
   const fetchData = async () => {
     const response = await fetch(
       "https://feinterviewtask.azurewebsites.net/b/6231abada703bb67492d2b8f"
     );
     const data = await response.json();
-    
+
     setCompany(data);
-    
   };
 
   useEffect(() => {
     fetchData();
   }, []);
-
+  console.log("data", company);
   return (
     <>
-       <StyledTable>
+      <StyledTable>
         <thead>
-            <tr>
-               <th>Name</th> 
-               <th>Description</th>
-            </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
         </thead>
         <tbody>
-      {company.map((item) => (
-        <tr key={item.id}>  
-        <td><Link to={`/company/${item.id}`} style={{textDecoration:'none',color: "#706F7D" }}> {item.name} </Link> </td>
-        <td> {item.description} </td>
-
-        </tr>
-        
-      ))}
-    </tbody>
-    
-     </StyledTable>
-     
-          </>
+          {company.map((item) => (
+            <tr key={item.id}>
+              <Link
+                to={`company/${item.id}`}
+                style={{ textDecoration: "none", color: "#706F7D" }}
+              >
+                <td> {item.name} </td>
+              </Link>
+              <td> {item.description} </td>
+            </tr>
+          ))}
+        </tbody>
+      </StyledTable>
+    </>
   );
 }
 
